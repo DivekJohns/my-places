@@ -1,0 +1,48 @@
+.notifications {
+  position: fixed;
+  top: 65px;
+  right: 0;
+  z-index: 1000;
+  min-width: 200px;
+  max-width: 200px;
+
+  .notification {
+    margin: 5px;
+    border-radius: 5px;
+    color: #fff;
+    overflow: hidden;
+
+    .title {
+      background: rgba(0, 0, 0, 0.6);
+      padding-left: 10px;
+      font-weight: bold;
+      flex-direction: row;
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .message {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 10px;
+      max-height: 200px;
+      word-break: break-word;
+    }
+
+    &.info {
+      background-color: rgba(189, 189, 189, 0.9);
+    }
+
+    &.success {
+      background-color: rgba(27, 158, 119, 0.9);
+    }
+
+    &.warning {
+      background-color: rgba(217, 95, 2, 0.9);
+    }
+
+    &.error {
+      background-color: rgba(246, 71, 71, 0.9);
+    }
+  }
+}

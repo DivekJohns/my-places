@@ -1,0 +1,16 @@
+<div class="notifications">
+  <div class="notification" [ngClass]="notification?.type" *ngFor="let notification of notifications">
+    <ng-container *ngTemplateOutlet="notificationTmpl; context:{notification:notification}"></ng-container>
+  </div>
+</div>
+<ng-template #notificationTmpl let-notification="notification">
+  <div class="title">
+    <div>{{notification.type |  titlecase }}</div>
+    <button mat-icon-button (click)="close(notification)" matTooltip="Close the notification"
+      matTooltipPosition="before">
+      <mat-icon>cancel</mat-icon>
+    </button>
+  </div>
+
+  <div class="message">{{notification.message}}</div>
+</ng-template>

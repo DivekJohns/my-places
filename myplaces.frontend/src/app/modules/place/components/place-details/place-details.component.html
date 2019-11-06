@@ -1,0 +1,208 @@
+<mat-card *ngIf="activatedRoute.snapshot.queryParamMap.get('id')">
+    <div class="row phdbx"
+         [ngStyle]="{'background-image': activatedRoute.snapshot.queryParamMap.get('id') &&  place?.images && place?.images.length > 1? 'url(' + place?.images[1].fileUrl +')' : 'url(https://source.unsplash.com/1200x600/?nature,water)'}">
+        <div class="col-sm-12 col-md-4">
+            <div class="imgBx">
+                <img *ngIf="place?.images && place?.images[0].fileUrl && activatedRoute.snapshot.queryParamMap.get('id'); else defualtImg"
+                     class="card-img-top"
+                     [src]="place.images[0].fileUrl" alt="Card image" style="width:100%">
+                <ng-template #defualtImg>
+                    <img  class="card-img-top" [src]="placeProfile"
+                          alt="Card image" style="width:100%">
+                </ng-template>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-8 shdbx2" *ngIf="edit">
+            <h2>{{placeDetails.get('name').value  | titlecase}}</h2>
+        </div>
+        <div class="col-sm-12 col-md-8 shdbx2" *ngIf="!edit">
+            <h2>{{place?.name  | titlecase }}</h2>
+        </div>
+    </div>
+    <div class="social__btns">
+        <div class="social-btn fb" data-network="facebook" (click)="fbShare()">
+            <img src="assets/fb.svg">
+            <span class="label">Share</span>
+        </div>
+        <div class="social-btn tweet" data-network="twitter" (click)="tweetShare()">
+            <img src="assets/twitter.svg">
+            <span class="label">Tweet</span>
+        </div>
+    </div>
+</mat-card>
+<mat-card *ngIf="edit">
+    <div class="placeDetails">
+        <h3>{{!add ? 'Edit' : 'Add'}} Information</h3>
+        <form [formGroup]="placeDetails">
+            <div class="row">
+                <div class="col-sm-12 col-lg-6">
+                    <div class="row fld">
+                        <div class="col-sm-4">
+                            <p>Name&#42;</p>
+                        </div>
+                        <div class="col-sm-8">
+                            <mat-form-field appearance="outline" class="inputBox">
+                                <input matInput formControlName="name">
+                            </mat-form-field>
+                            <mat-error *ngIf="placeDetails.get('name').errors && matErr">
+                                Name required &#63;
+                            </mat-error>
+                        </div>
+                    </div>
+                    <div class="row fld">
+                        <div class="col-sm-4">
+                            <p>Visted On&#42;</p>
+                        </div>
+                        <div class="col-sm-8">
+                            <mat-form-field appearance="outline" class="inputBox">
+                                <input matInput [matDatepicker]="dp" [min]="minDate" [max]="maxDate"
+                                        formControlName="createdAt" placeholder="dd/MM/yyyy"
+                                       readonly>
+                                <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                                <mat-datepicker #dp color="primary" disabled="false"></mat-datepicker>
+                            </mat-form-field>
+                            <mat-error *ngIf="placeDetails.get('createdAt').value == '' && matErr">
+                                Did you time travel&#33;
+                            </mat-error>
+                        </div>
+                    </div>
+                    <div class="row fld">
+                        <div class="col-sm-4">
+                            <p>Address</p>
+                        </div>
+                        <div class="col-sm-8">
+
+                            <mat-form-field appearance="outline" class="inputBox">
+                                <input matInput formControlName="address">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row fld">
+                        <div class="col-sm-4">
+                            <p>Description &#42;</p>
+                        </div>
+                        <div class="col-sm-8">
+                            <mat-form-field appearance="outline" class="inputBox">
+                                <input matInput formControlName="description">
+                            </mat-form-field>
+                            <mat-error *ngIf="placeDetails.get('description').errors && matErr">
+                                It can't be invisible
+                            </mat-error>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+        <div class="ctrls">
+            <h3></h3>
+            <div>
+                <button class="btn btn-primary" type="button" (click)="submitPlaceData()">{{ !add ? 'Update' : 'Add'}}</button>
+                <button class="btn btn-danger" type="button" (click)="onCancelEditPlace()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</mat-card>
+<mat-card class="matcard2" *ngIf="!edit">
+    <div class="title">
+        <h3>Information</h3>
+        <a class="edit" (click)="editPlaceNavigate(place._id)"><i class="material-icons">create</i></a>
+        <a class="edit" (click)="deletePlace()"><i class="material-icons">delete</i></a>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-12 info">
+            <div class="row area">
+                <div class="col-sm-12 col-md-5">
+                    <div class="flds1">
+                        <h3>Name</h3>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-7">
+                    <div class="flds2">
+                        <div>{{place?.name | titlecase}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row area">
+                <div class="col-sm-12 col-md-5">
+                    <div class="flds1">
+                        <h3>Visited on</h3>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-7">
+                    <div class="flds2">
+                        <div>{{(place?.createdAt | date : 'mediumDate')}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12 info">
+            <div class="row area">
+                <div class="col-sm-12 col-md-5">
+                    <div class="flds1">
+                        <h3>Description</h3>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-7">
+                    <div class="flds2">
+                        <div>
+                            <span>
+                                {{place?.description}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row area">
+                <div class="col-sm-12 col-md-5">
+                    <div class="flds1">
+                        <h3>Address</h3>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-7">
+                    <div class="flds2">
+                        <div>
+                            <span>
+                                {{place?.address}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</mat-card>
+<mat-card>
+    <div class="title">
+        <h3>Memories
+            <span style="float: right">
+                            <input style="display: none" type='file' id="imageUploads" (change)="uploadImages($event)"
+                                   multiple accept="image/gif, image/jpeg, image/png, image/jpg">
+            <label *ngIf="!activatedRoute.snapshot.queryParamMap.get('id')" class="btn btn-primary" for="imageUploads">Add images</label>
+            </span>
+        </h3>
+    </div>
+    <div class="container">
+
+        <div class="row" *ngIf="place?.images && place?.images[0].fileUrl && activatedRoute.snapshot.queryParamMap.get('id'); else newlyImages">
+            <div class="col-4" *ngFor="let image of place?.images">
+                <div class="zoom" (click)="openImage(image.fileUrl)">
+                    <img style="box-sizing: border-box;    padding: 5px 0 0 0; width: 100%;" [src]="image.fileUrl"
+                         class="img-rounded"
+                         [alt]="image.caption">
+                </div>
+            </div>
+        </div>
+        <ng-template #newlyImages>
+            <div class="row">
+                <div class="col-4" *ngFor="let image of newlyAddedImages">
+                    <div class="zoom" (click)="openImage(image.fileUrl)">
+                        <img style="box-sizing: border-box;    padding: 5px 0 0 0; width: 100%;" [src]="image.fileUrl"
+                             class="img-rounded"
+                             [alt]="image.caption">
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+</mat-card>

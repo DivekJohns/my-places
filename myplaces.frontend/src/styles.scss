@@ -1,0 +1,89 @@
+@import "../node_modules/@angular/material/theming";
+@import "~ng-pick-datetime/assets/style/picker.min.css";
+
+@include mat-core();
+$myplace-primary: (
+  50: #e5edfd,
+  100: #bed2fb,
+  200: #92b5f9,
+  300: #6697f6,
+  400: #4680f4,
+  500: #256af2,
+  600: #2162f0,
+  700: #1b57ee,
+  800: #164dec,
+  900: #0d3ce8,
+  A100: #ffffff,
+  A200: #e0e6ff,
+  A400: #adbcff,
+  A700: #94a7ff,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000
+  )
+);
+$myplace-accent: (
+  50: #f5f5f6,
+  100: #e7e7e9,
+  200: #d7d7db,
+  300: #c6c7cc,
+  400: #babbc1,
+  500: #aeafb6,
+  600: #a7a8af,
+  700: #9d9fa6,
+  800: #94969e,
+  900: #84868e,
+  A100: #ffffff,
+  A200: #edf0fd,
+  A400: #b8c5ff,
+  A700: #9fb0ff,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #000000,
+    600: #000000,
+    700: #000000,
+    800: #000000,
+    900: #000000,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000
+  )
+);
+
+//the first two are the custom palettes we declared above
+$myplace-theme-primary: mat-palette($myplace-primary);
+$myplace-theme-accent: mat-palette($myplace-accent);
+//the third, for the warn color, is the predefined material-module red palette
+$myplace-theme-warn: mat-palette($mat-red);
+$myplace-theme: mat-light-theme($myplace-theme-primary, $myplace-theme-accent, $myplace-theme-warn);
+@include angular-material-theme($myplace-theme);
+body {
+  margin: 0;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+textarea {
+  resize: none;
+}

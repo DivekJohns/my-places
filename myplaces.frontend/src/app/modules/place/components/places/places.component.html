@@ -1,0 +1,40 @@
+<div class="col s12 l10 ">
+    <h3>&nbsp;My visited places   {{places.length}}
+        <span (click)="addPlace()">
+            <a class="btn-floating btn-large blue right"
+            ><i class="material-icons">add</i></a>
+        </span>
+    </h3>
+    <input  *ngIf="places.length > 0 && !this.load"  [(ngModel)]="searchText" placeholder="Search places">
+    <div class="col s12">
+
+        <div class="container center-align">
+            <div style="display: inline-block">
+                <mat-progress-spinner [diameter]="40" *ngIf="load" color="warn" mode="indeterminate">
+                </mat-progress-spinner>
+            </div>
+        </div>
+
+	    <div *ngIf="places.length > 0  && !this.load" class="row">
+		    <div *ngFor="let place of places | search : searchText" class="col s12 m6 l4 ">
+                <div (click)="placeDetails(place)" class="card hoverable placeCard">
+	                <div class="imgBx">
+		                <img [src]="place.images[place.images.length-1].fileUrl" alt="Card image"
+		                     class="card-img-top" style="width:100%">
+	                </div>
+	                <div class="card-content" style="text-align: center">
+                        <h5>{{place.name | titlecase}} </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+	    <div *ngIf="places.length === 0  && !this.load" class="container">
+		    <p>Your so hardworking please go for a trip and add some place :)</p>
+		    <img alt="image placehoder"
+		         height="80"
+		         src="https://www.shareicon.net/data/512x512/2015/11/20/675068_earth_512x512.png"
+		         srcset="https://www.shareicon.net/data/512x512/2015/11/20/675068_earth_512x512.png"
+		         width="80">
+	    </div>
+    </div>
+</div>

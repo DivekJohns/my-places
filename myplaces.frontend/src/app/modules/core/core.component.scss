@@ -1,0 +1,88 @@
+$background-color: #256af2;
+
+*:not(mat-icon) {
+  font-family: "Comfortaa", cursive;
+}
+
+.mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+
+  .app-name {
+    font-size: 35px;
+    font-weight: bold;
+    letter-spacing: 0.0567em;
+    line-height: 1.153em;
+  }
+  .profileIco {
+    * {
+      position: relative;
+      cursor: pointer;
+    }
+    div {
+      background-size: cover;
+      border-radius: 50%;
+      margin: 0px;
+      overflow: hidden;
+      height: 42px;
+      width: 42px;
+      z-index: 0;
+      border: 1.5px solid silver;
+      background-position: center;
+      background-repeat: no-repeat;
+      outline: none;
+      background-color: #ffffff;
+    }
+  }
+}
+
+.sidenav {
+  background-color: $background-color;
+}
+
+.card {
+  background: rgb(255, 255, 255);
+  border-radius: 6px;
+  border: 1px solid rgb(151, 151, 151);
+  height: 317px;
+  width: 317px;
+}
+.logout {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  box-sizing: border-box !important;
+  padding: 0 16px !important;
+  position: relative !important;
+  color: white !important;
+}
+
+.margin-top-content {
+  min-height: 93vh;
+}
+
+@media (max-width: 599px) {
+  .margin-top-content {
+    min-height: 93vh;
+  }
+}
+
+icon {
+  padding: 0 14px;
+}
+
+spacer {
+  flex: 1 1 auto;
+}
+
+.is-active {
+  color: lightgray;
+  transform: scale(0.9) !important;
+  transition: all 0.6s ease-in-out;
+}
+
+.text-white {
+  color: white;
+  transform: scale(1) !important;
+  transition: all 0.6s ease-in-out;
+}
