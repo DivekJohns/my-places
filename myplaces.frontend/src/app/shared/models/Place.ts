@@ -5,6 +5,6 @@ export interface Place {
     user?: string;
     address?: string;
     description?: string;
-    images?: [];
+    images?: any[];
     createdAt?: string;
 }
